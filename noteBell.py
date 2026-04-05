@@ -84,4 +84,4 @@ def solve():
 # smtp.login(FROM, os.getenv("EMAIL_PASSWORD"))
 
 while solve():
-    time.sleep(random.randint(10, 20))
+    time.sleep(random.randint(50, 100))
