@@ -6,6 +6,9 @@ import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
 
+from dotenv import load_dotenv
+load_dotenv() 
+
 API_URL = "https://api2.openreview.net/notes"
 FORUM_ID = "u5cSIeXVtK"
 
@@ -25,7 +28,6 @@ FROM = "42211110@smail.swufe.edu.cn"
 TO = {
     "1224145380@qq.com": "Jord",
     # "Jord8061@foxmail.com": "Jord",
-    "xiaoyilin@whu.edu.cn": "Jeremy"
 }
 
 def make_header(email, name=None):
@@ -61,13 +63,13 @@ def solve():
         )
         return 1
     data = resp.json()
-    if data["count"] > 17:
+    if data["count"] > 18:
         print(f"[{tm}] 好像出现了新的 note，可能是 Meta 更新了！")
         title = data["notes"][0]["content"].get("title", {}).get("value", "No Title")
-        comment = data["notes"][0]["content"].get("comment", {}).get("value", "No Comment")
+        decision = data["notes"][0]["content"].get("decision", {}).get("value", "No Decision")
         send(
             '「ACL」出现了新的 note：' + title,
-            comment + "\n\n链接：https://openreview.net/forum?id=" + FORUM_ID,
+            decision + "\n\n链接：https://openreview.net/forum?id=" + FORUM_ID,
         )
         return 0
     print(f"[{tm}] 没有新的 note，继续监视...")
